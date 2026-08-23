@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "AI PrepMaster"
+description = "A polished interview preparation workspace where candidates study from their own material, complete progressive assessments, practice AI interviews, and track topic mastery."
+version = "1.0.0"
+id = "artifacts/ai-prepmaster"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25921
+
+[services.development]
+run = "pnpm --filter @workspace/ai-prepmaster run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ai-prepmaster", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/ai-prepmaster/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25921"
+BASE_PATH = "/"
