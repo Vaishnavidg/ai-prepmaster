@@ -1,0 +1,12 @@
+{
+  "name": "PrepMaster",
+  "short_name": "PrepMaster",
+  "description": "A focused interview preparation trainer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ee",
+  "theme_color": "#ff6b5d",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
