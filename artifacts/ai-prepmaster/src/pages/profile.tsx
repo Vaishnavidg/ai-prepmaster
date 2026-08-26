@@ -1,0 +1,14 @@
+import { Check, CheckCircle2, Settings2, Target, Trophy } from "lucide-react";
+import { useState } from "react";
+import { AppShell } from "@/components/shared/app-shell";
+import { PageHeading } from "@/components/shared/page-heading";
+import { Button } from "@/components/shared/action-button";
+import { initials } from "@/components/shared/icon";
+import { currentUser } from "@/data/mock-data";
+
+export function Profile() {
+  const [editing, setEditing] = useState(false);
+  const [name, setName] = useState(currentUser.name);
+  const [saved, setSaved] = useState(false);
+  return <AppShell><PageHeading eyebrow="Account" title="Your profile." description="Keep your target in view. It shapes the signal we prioritize." action={editing ? <Button onClick={() => { setEditing(false); setSaved(true); window.setTimeout(() => setSaved(false), 1800); }} icon={Check}>Save changes</Button> : <Button variant="secondary" onClick={() => setEditing(true)} icon={Settings2}>Edit profile</Button>} /><div className="profile-layout"><section className="profile-card"><div className="profile-card-top"><span className="avatar avatar-large">{initials(name)}</span><div><h2>{name}</h2><p>alex@rivera.dev</p><span className="status-pill status-green"><Target size={13} /> Software Engineer track</span></div></div>{saved && <div className="saved-message"><CheckCircle2 size={15} /> Profile saved locally</div>}<div className="profile-fields"><label>Full name<input value={name} onChange={(e) => setName(e.target.value)} disabled={!editing} data-testid="input-profile-name" /></label><label>Email address<input defaultValue="alex@rivera.dev" disabled={!editing} data-testid="input-profile-email" /></label><label>Target role<select defaultValue="Software Engineer" disabled={!editing} data-testid="select-target-role"><option>Software Engineer</option><option>Frontend Engineer</option><option>Backend Engineer</option><option>Product Engineer</option></select></label><label>Experience level<select defaultValue="Mid-level" disabled={!editing} data-testid="select-experience"><option>Early career</option><option>Mid-level</option><option>Senior</option></select></label></div></section><aside className="profile-side"><div className="profile-side-card"><div className="eyebrow">Preferred topics</div><h3>What do you want to feel fluent in?</h3><div className="preference-tags">{["Data structures", "System design", "OOP", "Behavioral"].map((tag) => <button type="button" key={tag} className="preference-tag selected" data-testid={`button-preference-${tag.toLowerCase().replace(" ", "-")}`}>{tag}<Check size={13} /></button>)}</div></div><div className="profile-side-card accent-card"><Trophy size={21} /><h3>One clear path.</h3><p>Your profile helps us recommend the next best rep, not a bigger syllabus.</p></div></aside></div></AppShell>;
+}

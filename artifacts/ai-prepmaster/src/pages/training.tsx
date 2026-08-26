@@ -1,0 +1,11 @@
+import { ArrowRight, Check, CheckCircle2, ChevronRight, Lock, MessageSquare, Play } from "lucide-react";
+import { Link } from "wouter";
+import { AppShell } from "@/components/shared/app-shell";
+import { PageHeading } from "@/components/shared/page-heading";
+import { Button } from "@/components/shared/action-button";
+import { ProgressBar } from "@/components/shared/progress-bar";
+import { topics } from "@/data/mock-data";
+
+export function Training() {
+  return <AppShell><PageHeading eyebrow="Your progression" title="Training that meets you there." description="Three levels to turn familiar concepts into confident answers." action={<Button href="/training/oops" icon={ArrowRight}>Resume OOP</Button>} /><div className="training-hero"><div className="training-hero-copy"><span className="eyebrow light"><span className="eyebrow-dot" /> NEXT BEST REP</span><h2>Object-Oriented<br /><em>Programming</em></h2><p>You have the foundations. Now make your reasoning audible.</p><Button href="/training/oops" variant="primary" icon={Play}>Continue · intermediate</Button></div><div className="training-road"><span className="road-line" /><div className="road-node complete"><Check size={16} /><small>Basic</small></div><div className="road-node current"><span>02</span><small>Intermediate</small></div><div className="road-node locked"><Lock size={14} /><small>Advanced</small></div><div className="road-node locked"><MessageSquare size={16} /><small>Interview</small></div></div></div><div className="section-head training-list-head"><div><div className="eyebrow">All active paths</div><h2>Choose your next edge.</h2></div><span className="map-summary"><span className="summary-dot" /> 1 of 4 in motion</span></div><div className="training-list">{topics.slice(0, 4).map((topic) => <Link href={`/training/${topic.id === "oops" ? "oops" : topic.id}`} className="training-row" key={topic.id} data-testid={`row-training-${topic.id}`}><span className="training-status">{topic.progress === 100 ? <CheckCircle2 size={18} /> : <span>{topic.progress}%</span>}</span><div><strong>{topic.name}</strong><small>{topic.status} · {topic.progress < 100 ? "next rep ready" : "keep warm with a practice rep"}</small></div><ProgressBar value={topic.progress} /><ChevronRight size={17} /></Link>)}</div></AppShell>;
+}
